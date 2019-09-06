@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../docker-compose.yml -f ../docker-compose.storage.minio.yml
+      -f ../template/prod.yml convert
+    kompose.version: 1.18.0 (06a2e56)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: storage-proxy
+  name: storage-proxy
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: storage-proxy
+    spec:
+      containers:
+      - env:
+        - name: DOWNLOAD_SPEED
+          value: 1m
+        - name: MAX_CONNECTIONS
+          value: "100"
+        image: openresty/openresty:1.13.6.2-0-alpine
+        name: storage-proxy
+        ports:
+        - containerPort: 9000
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/storage-proxy/cert/cert.crt
+          name: storage-proxy-claim0
+          readOnly: true
+        - mountPath: /var/www/storage-proxy/cert/private.key
+          name: storage-proxy-claim1
+          readOnly: true
+        - mountPath: /usr/local/openresty/nginx/conf/nginx.conf
+          name: storage-proxy-claim2
+      restartPolicy: Always
+      volumes:
+      - name: storage-proxy-claim0
+        persistentVolumeClaim:
+          claimName: storage-proxy-claim0
+          readOnly: true
+      - name: storage-proxy-claim1
+        persistentVolumeClaim:
+          claimName: storage-proxy-claim1
+          readOnly: true
+      - name: storage-proxy-claim2
+        persistentVolumeClaim:
+          claimName: storage-proxy-claim2
+status: {}

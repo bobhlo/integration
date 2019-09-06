@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mender-gui
+  name: mender-gui
+spec:
+  containers:
+  - env:
+    - name: INTEGRATION_VERSION
+    - name: MENDER_ARTIFACT_VERSION
+    - name: MENDER_DEB_PACKAGE_VERSION
+    - name: MENDER_VERSION
+    image: mendersoftware/gui:master
+    name: mender-gui
+    resources: {}
+  restartPolicy: OnFailure
+status: {}

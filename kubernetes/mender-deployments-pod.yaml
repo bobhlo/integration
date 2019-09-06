@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mender-deployments
+  name: mender-deployments
+spec:
+  containers:
+  - args:
+    - server
+    - --automigrate
+    env:
+    - name: DEPLOYMENTS_AWS_AUTH_KEY
+    - name: DEPLOYMENTS_AWS_AUTH_SECRET
+    - name: DEPLOYMENTS_AWS_URI
+      value: https://set-my-alias-here.com
+    - name: STORAGE_BACKEND_CERT
+      value: /etc/ssl/certs/storage-proxy.crt
+    image: mendersoftware/deployments:master
+    name: mender-deployments
+    resources: {}
+    volumeMounts:
+    - mountPath: /etc/ssl/certs/storage-proxy.crt
+      name: mender-deployments-claim0
+      readOnly: true
+  restartPolicy: OnFailure
+  volumes:
+  - name: mender-deployments-claim0
+    persistentVolumeClaim:
+      claimName: mender-deployments-claim0
+      readOnly: true
+status: {}

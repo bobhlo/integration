@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../docker-compose.yml -f ../docker-compose.storage.minio.yml
+      -f ../template/prod.yml convert
+    kompose.version: 1.18.0 (06a2e56)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mender-api-gateway
+  name: mender-api-gateway
+spec:
+  ports:
+  - name: "443"
+    port: 443
+    targetPort: 443
+  selector:
+    io.kompose.service: mender-api-gateway
+status:
+  loadBalancer: {}
