@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mender-elasticsearch
+  labels:
+    io.kompose.service: mender-elasticsearch
+spec:
+  ports:
+  - port: 9300
+    protocol: TCP
+  selector:
+    io.kompose.service: mender-elasticsearch
