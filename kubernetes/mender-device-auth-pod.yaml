@@ -15,12 +15,16 @@ spec:
     resources: {}
     volumeMounts:
     - mountPath: /etc/deviceauth/rsa/private.pem
+#    - mountPath: /etc/useradm/rsa/private.pem
       name: mender-device-auth-claim0
+      subPath: private.pem
       readOnly: true
   restartPolicy: OnFailure
   volumes:
   - name: mender-device-auth-claim0
-    persistentVolumeClaim:
-      claimName: mender-device-auth-claim0
-      readOnly: true
+    configMap:
+      name: mender-device-auth
+#    persistentVolumeClaim:
+#      claimName: mender-device-auth-claim0
+#      readOnly: true
 status: {}

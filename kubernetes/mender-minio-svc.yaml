@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  labels:
+    io.kompose.service: minio
+spec:
+  ports:
+  - port: 9000
+    protocol: TCP
+  selector:
+    io.kompose.service: minio

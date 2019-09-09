@@ -6,6 +6,7 @@ metadata:
     io.kompose.service: mender-device-auth-claim0
   name: mender-device-auth-claim0
 spec:
+  storageClassName: azurefile
   accessModes:
   - ReadOnlyMany
   resources:

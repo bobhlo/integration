@@ -34,22 +34,31 @@ spec:
         - mountPath: /var/www/storage-proxy/cert/cert.crt
           name: storage-proxy-claim0
           readOnly: true
+          subPath: cert.crt
         - mountPath: /var/www/storage-proxy/cert/private.key
           name: storage-proxy-claim1
           readOnly: true
+          subPath: private.key
         - mountPath: /usr/local/openresty/nginx/conf/nginx.conf
           name: storage-proxy-claim2
+          subPath: nginx.conf
       restartPolicy: Always
       volumes:
       - name: storage-proxy-claim0
-        persistentVolumeClaim:
-          claimName: storage-proxy-claim0
-          readOnly: true
+        configMap:
+          name: storage-proxy-crt
+#        persistentVolumeClaim:
+#          claimName: storage-proxy-claim0
+#          readOnly: true
       - name: storage-proxy-claim1
-        persistentVolumeClaim:
-          claimName: storage-proxy-claim1
-          readOnly: true
+        configMap:
+          name: storage-proxy-key
+#        persistentVolumeClaim:
+#          claimName: storage-proxy-claim1
+#          readOnly: true
       - name: storage-proxy-claim2
-        persistentVolumeClaim:
-          claimName: storage-proxy-claim2
+        configMap:
+          name: storage-proxy-conf
+#        persistentVolumeClaim:
+#          claimName: storage-proxy-claim2
 status: {}

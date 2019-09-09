@@ -6,6 +6,7 @@ metadata:
     io.kompose.service: mender-useradm-claim0
   name: mender-useradm-claim0
 spec:
+  storageClassName: azurefile
   accessModes:
   - ReadOnlyMany
   resources:

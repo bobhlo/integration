@@ -6,6 +6,7 @@ metadata:
     io.kompose.service: mender-api-gateway-claim1
   name: mender-api-gateway-claim1
 spec:
+  storageClassName: azurefile
   accessModes:
   - ReadOnlyMany
   resources:

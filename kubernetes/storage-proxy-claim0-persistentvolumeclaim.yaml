@@ -6,6 +6,7 @@ metadata:
     io.kompose.service: storage-proxy-claim0
   name: storage-proxy-claim0
 spec:
+  storageClassName: azurefile
   accessModes:
   - ReadOnlyMany
   resources:

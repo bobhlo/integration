@@ -21,7 +21,6 @@ spec:
     - mountPath: /redis/entrypoint.sh
       name: mender-redis-claim2
       subPath: entrypoint.sh
-      readOnly: false
   restartPolicy: OnFailure
   volumes:
   - name: mender-redis-db
